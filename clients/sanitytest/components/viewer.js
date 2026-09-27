@@ -14,7 +14,6 @@ import { filename } from '../../../src/common/path';
 import Model from '../../../src/viewer/model';
 import Texture from '../../../src/viewer/texture';
 import MdxModel from '../../../src/viewer/handlers/mdx/model';
-import { Shape } from '../../../src/parsers/mdlx/collisionshape';
 
 export default class Viewer extends Component {
   constructor(tester, options) {

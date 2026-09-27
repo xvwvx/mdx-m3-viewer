@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>本地资源模型查看器</title>
+    <meta charset="utf-8" />
+    <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div id="overlay">
+        <div class="overlay-box">松开鼠标以加载</div>
+    </div>
+
+    <aside id="panel">
+        <h1>本地资源模型查看器</h1>
+        <p class="hint">
+            把 <b>.mdx / .mdl</b>（或整个文件夹）拖到页面上即可加载。<br>
+            资源来源优先级：<b>拖入的文件</b> → <b>纹理目录</b>（按列表顺序）→ <b>MPQ</b>（最低）。
+        </p>
+
+        <section>
+            <h2>模型</h2>
+            <div class="row">
+                <button id="modelButton">选择模型…</button>
+                <button id="reloadButton">重新加载</button>
+            </div>
+            <div id="modelInfo" class="item muted">未加载</div>
+            <div class="row">
+                <label for="sequenceSelect">动画</label>
+                <select id="sequenceSelect"></select>
+            </div>
+            <div class="row">
+                <button id="playButton">暂停</button>
+                <label for="teamColorSelect">队伍颜色</label>
+                <select id="teamColorSelect"></select>
+            </div>
+            <div class="row">
+                <label for="modeSelect">模式</label>
+                <select id="modeSelect">
+                    <option value="auto">自动（按模型版本）</option>
+                    <option value="tft">强制 TFT（SD，16 队伍色）</option>
+                    <option value="reforged">强制 Reforged（28 队伍色）</option>
+                </select>
+            </div>
+            <p class="hint">左键拖动旋转，右键拖动平移，滚轮缩放。</p>
+        </section>
+
+        <section>
+            <h2>1. 拖入的文件 <button id="clearDropped" class="mini">清空</button></h2>
+            <div id="droppedCount" class="item muted">无</div>
+            <div id="droppedList"></div>
+        </section>
+
+        <section>
+            <h2>
+                2. 纹理目录
+                <button id="textureButton" class="mini">添加…</button>
+                <button id="clearTextures" class="mini">清空</button>
+            </h2>
+            <div id="textureList"></div>
+        </section>
+
+        <section>
+            <h2>3. MPQ 归档（最低优先级）</h2>
+            <div class="row">
+                <button id="gameButton">选择游戏目录…</button>
+                <button id="mpqButton">添加 MPQ…</button>
+            </div>
+            <div id="gameDirName" class="item muted">未选择游戏目录</div>
+            <div id="mpqSummary" class="item muted"></div>
+            <div id="mpqList"></div>
+            <p class="hint">
+                归档按 <b>War3Patch &gt; War3xLocal &gt; War3Local &gt; War3x &gt; War3</b> 的顺序查找，
+                并且只在使用到时才解析。整个经典安装可能占用 1 GB 以上内存，可以取消勾选不需要的归档。<br>
+                1.30 及以后的安装使用 CASC 格式，本客户端不支持。
+            </p>
+        </section>
+
+        <section>
+            <h2>日志 <button id="clearLog" class="mini">清空</button></h2>
+            <div id="log"></div>
+        </section>
+    </aside>
+
+    <div id="status"></div>
+
+    <input id="modelInput" type="file" accept=".mdx,.mdl" multiple hidden>
+    <input id="textureInput" type="file" webkitdirectory directory multiple hidden>
+    <input id="gameInput" type="file" webkitdirectory directory multiple hidden>
+    <input id="mpqInput" type="file" accept=".mpq" multiple hidden>
+
+    <script src="/clients/localassets.min.js"></script>
+</body>
+
+</html>

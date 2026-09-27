@@ -1,6 +1,6 @@
 const fs = require('fs');
 const webpack = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
+const MinimizerPlugin = require('minimizer-webpack-plugin');
 
 module.exports = (env, argv) => {
   let entry;
@@ -15,6 +15,7 @@ module.exports = (env, argv) => {
     entry = {
       'example': { import: './clients/example/index.js', filename: 'clients/example.min.js' },
       'downgrader': { import: './clients/downgrader/index.js', filename: 'clients/downgrader.min.js' },
+      'localassets': { import: './clients/localassets/index.js', filename: 'clients/localassets.min.js' },
       'map': { import: './clients/map/index.js', filename: 'clients/map.min.js' },
       'mdlx': { import: './clients/mdlx/index.js', filename: 'clients/mdlx.min.js' },
       'rebuild': { import: './clients/rebuild/index.js', filename: 'clients/rebuild.min.js' },
@@ -53,7 +54,7 @@ module.exports = (env, argv) => {
     },
     devtool: argv.mode === 'development' ? 'eval-cheap-module-source-map' : 'source-map',
     optimization: {
-      minimizer: [new TerserPlugin({
+      minimizer: [new MinimizerPlugin({
         extractComments: false,
       })],
     },
